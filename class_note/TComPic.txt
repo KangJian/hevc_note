@@ -1,0 +1,23 @@
+
+
+类名称：TComPicYuv
+作用  ：用于存储图像数据的类
+
+
+成员属性：
+
+m_ctuOffsetInBuffer,m_subCuOffsetInBuffer
+
+	用于存储CTU与CU在图像数据数组里面的偏移位置
+	通过初始化一次性计算出所有的相应的偏移位置，避免之后的重复计算
+	其中m_subCuOffsetInBuffer并非记录每一次劈分后的每一个CU的位置 
+	而是只记录最小CU的偏移位置
+
+成员函数：
+
+extendPicBorder()
+
+	用于进行扩编操作，与AVS代码中的PAD_PICTURE类似
+	但需要注意的是在H264或AVS中的扩边大小是恒定的
+	但在HM实现中是根据最大编码单元的大小进行扩编的(MAX_CU_SIZE + 16BYTE)
+
